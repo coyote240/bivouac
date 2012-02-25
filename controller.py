@@ -23,7 +23,7 @@ def action(func):
                 return resp(environ, start_response)
             
         try:
-            resp = func(self, req, **req.urlvars)
+            resp = func(self, req, **req.urlvars)   # original function called here
         except exc.HTTPException, e:
             resp = e
 

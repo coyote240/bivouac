@@ -54,7 +54,8 @@ class Session(dict):
     
     def store(self):
 
-        self._id = Session._get_session_collection().save(self.__dict__)
+        session_collection = Session._get_session_collection()
+        self._id = session_collection.save(self.__dict__, safe=True)
         return self._id
 
 

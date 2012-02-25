@@ -17,6 +17,18 @@ class View(object):
         raise NotImplementedError('Method not implemented by inheriting class.')
 
 
+    @property
+    def Model(self):
+        
+        return self.model;
+
+
+    @Model.setter
+    def Model(self, model):
+
+        self.model = model;
+
+
     def __call__(self, environ, start_response):
         
         output = self.populate_template()
