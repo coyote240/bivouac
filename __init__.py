@@ -5,3 +5,6 @@ from session import Session
 from model import Model
 from view import View
 from jsonview import JSONView
+
+base_url = ''
+template_path = ''

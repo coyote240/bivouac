@@ -6,6 +6,7 @@ from webob import Request, Response, exc
 from user import User
 from session import Session
 
+import bivouac
 
 def action(func):
 
@@ -122,7 +123,7 @@ class Controller(object):
 
     def redirect(self, location):
 
-        req = Request.blank('/')
+        req = Request.blank('/', base_url=bivouac.base_url)
         e = exc.HTTPTemporaryRedirect(location=location)
         return req.get_response(e)
 

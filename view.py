@@ -1,7 +1,6 @@
 import sys
 from xml.dom.minidom import parse
 from webob import Request, Response, exc
-from template import TemplateCache
 
 class View(object):
 
@@ -9,7 +8,8 @@ class View(object):
     def __init__(self, model):
         
         self.model = model
-        self.cache = TemplateCache()
+        self.scripts = []
+        self.styles = []
 
 
     def populate_template(self):
