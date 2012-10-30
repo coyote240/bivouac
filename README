@@ -9,8 +9,8 @@ Cheers.
 bivouac has grown out of my own efforts to build websites in Python with as thin a footprint as I can.  bivouac provides a basic MVC framework inspired by Microsoft's MVC 1.0 framework.  Expect further ruminations on the topic elsewhere.
 
 Currently, bivouac has a small number of dependencies:
-* Apache web server
-* mod_wsgi
+* Apache or IIS web server
+* mod_wsgi or isapi_wsgi
 * Paste
 * mongodb
 * PyMongo
