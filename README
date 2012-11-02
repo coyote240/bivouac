@@ -1,5 +1,4 @@
-bivouac - a light-weight, wsgi-compliant MVC web framework in Python
-========-------
+# bivouac - a light-weight, wsgi-compliant MVC web framework in Python
 
 I am well aware that it is considered bad form to build your own framework.  Generally, I agree.  However, the ONLY purpose of any of my personal or open projects is to amuse me when I'm in the mood to code for free.  While I expect that bivouac will revolutionize web development in Python, I do not anticipate providing any meaningful support to users of the project.  
 Cheers.
