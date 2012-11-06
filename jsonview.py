@@ -16,4 +16,7 @@ class JSONView(bivouac.View):
 
     def populate_template(self):
 
-        return json.dumps(self.model)
+		if type(self.model) == str:
+			return self.model
+		
+		return json.dumps(self.model)
