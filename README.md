@@ -26,7 +26,6 @@ bivouac provides classes for MVC routing, controllers, models and views.  Here's
 
 For starters, create a module called app.py, or whatever you've specified as your WSGI entry point.  Here we see a simple WSGI entry point with some boiler-plate routing.  This will serve most folks needs, so feel free to start with this setup.
     
-::
 
     import bivouac
 
@@ -36,9 +35,9 @@ For starters, create a module called app.py, or whatever you've specified as you
     application.add_route('/{controller}/{action}')
     application.add_route('/{controller}/{action}/{id}')
 
+
 Next you'll need a controller.  bivouac looks for controllers within your site directory, typically in the controllers package.  Your controller will inherit from bivouac.Controller.  Methods decorated with @action will be treated as controller actions and return bivouac views, or any WSGI compliant, iterable structure.
 
-::
 
     import bivouac
     from bivouac.controller import action, noauth
