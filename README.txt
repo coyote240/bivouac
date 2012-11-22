@@ -1,30 +1,66 @@
-bivouac - a light-weight, wsgi-compliant web framework in Python
-January 19, 2012
-Adam A.G. Shamblin
-adam.shamblin@gmail.com
+====================================================================
+bivouac - a light-weight, wsgi-compliant MVC web framework in Python
+====================================================================
 
-I am well aware that it is considered bad form to build your own framework.  Generally, I agree.  However, the ONLY purpose of any of my personal or open projects is to amuse me when I'm in the mood to code for free.  While I expect that bivouac will revolutionize web development in Python, I do not anticipate providing any meaningful support to users of the project.  
-Cheers.
+Why bivouac?
+------------
 
-bivouac has grown out of my own efforts to build websites in Python with as thin a footprint as I can.  bivouac provides a basic MVC framework inspired by Microsoft's MVC 1.0 framework.  Expect further ruminations on the topic elsewhere.
+bivouac has grown out of my own efforts to build websites in Python with as thin a footprint as I can.  bivouac provides a basic MVC framework inspired by Microsoft's MVC 1.0 framework.  Expect further ruminations on the topic elsewhere.  In the past I suggested I would not support this project, but as I find I rely on bivouac for more of my own websites, I expect to do as much as I can to encourage adoption and support. I think we're on to something good here!
+
+What is bivouac?
+----------------
+
+bivouac is WSGI compliant and aims to be as webserver-agnostic as it can.  Using mod_wsgi or isapi_wsgi, bivouac works well with both Apache and IIS, with NGINX being an untested likelihood.  Today bivouac supports authentication and user sessions using MongoDB.  Long-term look for this to become more database independent.
 
 Currently, bivouac has a small number of dependencies:
-* Apache web server
-* mod_wsgi
-* Paste
+
+* mod_wsgi or isapi_wsgi
+* Paste & Webob
 * mongodb
 * PyMongo
 
-I expect a number of iterations where bivouac moves away from using the Apache web server, but I'm on the fence on this point.  It can be very nice to have Apache handle all static content requests, sparing me the trouble.
+Basic Usage
+-----------
 
-MongoDB may be a strange dependency, but again this is for my amusement.  MongoDB is used for user records, session management, and may be used as the default backend for a generalized model.
+bivouac provides classes for MVC routing, controllers, models and views.  Here's a quick intro to getting a site up and running using bivouac.
 
-Basic Usage:
+For starters, create a module called app.py, or whatever you've specified as your WSGI entry point.  Here we see a simple WSGI entry point with some boiler-plate routing.  This will serve most folks needs, so feel free to start with this setup.
+    
+::
 
-from bivouac import Router
+    import bivouac
 
-application = Router()
-application.add_route('/', defaults={'controller': 'default', 'action': 'index'})
-application.add_route('/{controller}/', defaults={'action': 'index'})
-application.add_route('/{controller}/{action}')
-application.add_route('/{controller}/{action}/{id}')
+    application = bivouac.Router()
+    application.add_route('/', defaults={'controller': 'default', 'action': 'index'})
+    application.add_route('/{controller}/', defaults={'action': 'index'})
+    application.add_route('/{controller}/{action}')
+    application.add_route('/{controller}/{action}/{id}')
+
+Next you'll need a controller.  bivouac looks for controllers within your site directory, typically in the controllers package.  Your controller will inherit from bivouac.Controller.  Methods decorated with @action will be treated as controller actions and return bivouac views, or any WSGI compliant, iterable structure.
+
+::
+
+    import bivouac
+    from bivouac.controller import action, noauth
+
+    controller = "DefaultController"
+
+    class DefaultController(bivouac.Controller):
+
+        '''Default Controller.
+        '''
+
+        def __init__(self):
+
+            bivouac.Controller.__init__(self)
+
+
+        @noauth
+        @action
+        def index(self, req, **vars):
+
+            import views.index as View
+
+            view = View.IndexView()
+            return view
+
