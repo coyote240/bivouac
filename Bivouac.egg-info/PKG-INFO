@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: Bivouac
-Version: 0.1.0
+Version: 0.1.1
 Summary: a light-weight, wsgi-compliant web framework in Python
 Home-page: http://pypi.python.org/pypi/bivouac
 Author: Adam A.G. Shamblin

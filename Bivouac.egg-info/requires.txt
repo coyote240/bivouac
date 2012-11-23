@@ -1,4 +1,3 @@
-distribute
 WebOb >= 1.2.1
 Paste >= 1.7.5.1
 pymongo >= 2.1.1
