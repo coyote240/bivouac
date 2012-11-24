@@ -9,9 +9,17 @@ setup(
         author='Adam A.G. Shamblin',
         author_email='adam.shamblin@gmail.com',
         packages=find_packages(),
-        url='http://pypi.python.org/pypi/bivouac',
+        url='https://github.com/coyote240/bivouac',
+        download_url='https://github.com/downloads/coyote240/bivouac/Bivouac-0.1.1.tar.gz',
         license='MIT',
         keywords='web mvc wsgi framework',
+        classifiers=[
+            'Classifier: Development Status :: 3 - Alpha',
+            'Classifier: Intended Audience :: Developers',
+            'Classifier: License :: OSI Approved :: MIT License',
+            'Classifier: Topic :: Internet :: WWW/HTTP :: WSGI',
+            'Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application'
+        ],
         description='a light-weight, wsgi-compliant web framework in Python',
         long_description=open('README.txt').read(),
         install_requires=[
