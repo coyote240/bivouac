@@ -20,7 +20,7 @@ def action(func):
         if self.require_auth:
             self.user = self.get_user(req)
             if self.user is None:
-                resp = self.redirect('/login')
+                resp = self.redirect(bivouac.auth_redirect)
                 return resp(environ, start_response)
             
         try:

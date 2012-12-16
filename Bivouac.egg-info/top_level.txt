@@ -1,2 +1,0 @@
-bivouac
-distribute_setup

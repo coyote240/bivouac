@@ -8,3 +8,4 @@ from jsonview import JSONView
 
 base_url = ''
 template_path = ''
+auth_redirect = '/login'
