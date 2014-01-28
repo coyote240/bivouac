@@ -8,6 +8,7 @@ from session import Session
 
 import bivouac
 
+
 def action(func):
 
     '''MVC @action decorator as a WSGI application.
@@ -22,15 +23,16 @@ def action(func):
             if self.user is None:
                 resp = self.redirect(bivouac.auth_redirect)
                 return resp(environ, start_response)
-            
+
         try:
-            resp = func(self, req, **req.urlvars)   # original function called here
+            # original function called here
+            resp = func(self, req, **req.urlvars)
         except exc.HTTPException, e:
             resp = e
 
         if isinstance(resp, basestring):
             resp = Response(body=resp)
-            
+
         return resp(environ, start_response)
 
     return replacement
@@ -41,14 +43,13 @@ def noauth(func):
     '''MVC @noauth decorator as a WSGI middleware application.
     @noauth prevents checking for user.  Used for "public" pages.
     '''
-    
+
     def replacement(self, environ, start_response):
         self.require_auth = False
         return func(self, environ, start_response)
 
     return replacement
-        
-    
+
 
 class Controller(object):
 
@@ -57,7 +58,7 @@ class Controller(object):
     functionality, including credential checking, session management,
     and redirects.
     '''
-    
+
     def __init__(self):
 
         self.session = None
@@ -67,7 +68,6 @@ class Controller(object):
 
         self.require_auth = True
 
-
     def get_user(self, req):
 
         user = self.check_credentials(req)
@@ -76,7 +76,6 @@ class Controller(object):
             user = self.check_session(req)
 
         return user
-
 
     def check_credentials(self, req):
 
@@ -99,7 +98,6 @@ class Controller(object):
 
         return user
 
-
     def check_session(self, req):
 
         '''Check session cookie.
@@ -119,7 +117,6 @@ class Controller(object):
             self.user = User.get_user(user_id)
 
         return self.user
-    
 
     def redirect(self, location):
 
@@ -127,12 +124,11 @@ class Controller(object):
         e = exc.HTTPTemporaryRedirect(location=location)
         return req.get_response(e)
 
-
     def set_session(self, resp):
 
         self.session = Session()
         self.session.uid = self.user.id
-        self.session.expires = datetime.datetime.now() + datetime.timedelta(days=1) 
+        self.session.expires = datetime.datetime.now() + datetime.timedelta(days=1)
         self.session.store()
 
         resp.set_cookie('session', self.session.id,

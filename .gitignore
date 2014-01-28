@@ -1,8 +1,4 @@
-*.vim
-*.swp
-*.swo
 *.bak
-*.egg
 *.tar.gz
 
 *.py[cod]
@@ -43,3 +39,6 @@ nosetests.xml
 
 *.swp
 *.swo
+*.vim
+
+.DS_Store
